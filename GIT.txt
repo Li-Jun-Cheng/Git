@@ -84,7 +84,7 @@ git clone https://github.com/goubinhit/mybatis-tutorial.git命令
 
 第二种：本地有Git仓库，并且我们已经进行了多次commit操作。
 
-git remote add origin https://github.com/gout...tial.git 命令
+git remote add origin https://github.com/gout...tial.git 命令  （这里的origin改成自己的远程仓库名）
 
 关联远程仓库，其中origin为远程仓库的地址
 
@@ -96,3 +96,4 @@ git remote add origin https://github.com/gout...tial.git 命令
 
 在我们像远程仓库提交代码的时候，一定要先进行pull操作，再进行push操作，防止本地仓库和远程仓库不同步导致冲突问题，尤其是第二种提交代码的情况，很容易出现问题。
 
+ https://github.com/Li-Jun-Cheng/Git-.git
