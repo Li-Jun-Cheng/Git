@@ -1,0 +1,98 @@
+# git使用教程
+
+git最常用的命令是 git status 该命令是用来查看仓库状态的命令
+
+git init 命令，作用是初始化一个仓库
+
+git add是将文件添加到临时缓冲区
+
+git commit -m  "提交的文字说明"  该命令是将文件提交到本地git仓库
+
+git log 是打印Git提交日志的命令（Author、Date提交日期和提交信息）
+
+git branch命令是查看Git仓库的分支情况
+
+git branch a是创建了a分支
+
+git checkout a 命令代表切换到a分支
+
+git checkout -b f 命令表示创建分支的同时切换到刚刚创建的分支
+
+git checkout master  先切换到主分支
+
+git merge a 将a分支合并到master分支。合并之前需要考虑两个分支是否有冲突，如果有冲突不能直接合并，需要先解决冲突;反之，则可以直接合并。
+
+git branch -d a 删除a分支  如果出现分支删除不了是因为该分支还未合并到主分支上，将-d改为-D就是强制删除
+
+git tag v1.0 就是为该分支添加标签
+
+git tag 就是擦好看该分支的标签记录
+
+git checkout v1.0即可切换到该标签下的代码状态
+
+远程代码仓库很多，但操作都大同小异。有github.gitee。gitleb等
+
+我的理解就是将本地的git仓库给弄到云端，分支内同都不改变。但云端多了分享代码的功能，仅此而已。
+
+那么将本地代码提交到云端有三种方式，一本地文件打包上传，远程文件直接下载。二使用SSH进行交互。三。使用https链接进行交互 
+
+利用SSH完成GIT和GitHub的绑定
+
+想要使用SSH像GitHub提交代码，首先得再GitHub上添加SSH key配置。
+
+第一步生成SSH key
+
+我们想要生成SSH key，首先得先安装SSH,对于Liunx系统和Mac系统，其默认是安装SSH的，而对于Windows系统，其默认不是安装SSH的，不过由于我们安装了Git Bash,其也应该自带了SSH.可以通过 Git bash中输入ssh命令，查看本机是否安装SSH
+
+ssh-keygen -t rsa命令。表示我们指定RSA算法生成密钥，然后敲三次回车键，期间不需要输入密码，之后就会生成两个文件，分别是id_rsa和id_rsa.pub,即密钥id_rsa和公钥id_rsa.pub.对于这两个文件，其都为隐藏文件，默认生成以下目录：
+
+Liunx系统：~/.ssh
+
+Mac系统: ~/.ssh
+
+windows系统：C:\Documents and Settings\username\\.ssh
+
+密钥和公钥生成之后，我们要做的事情就是把公钥id_rsa.pub的内容添加到Github中，这样我们本地的密钥:id_rsa和GitHub上的公钥id_rsa.pub才可以进行匹配，授权成功后就可以像GitHub上提交代码了！
+
+ssh -T git@github.com命令进行测试 输出结果看到Hi guobinhit!
+
+push命令是推 pull是拉
+
+git push origin master
+
+git pull origin master   其中origin是远程仓库名 master是要拉的分支名
+
+如果仓库是别人的代码开发好了，我们肯定是没有权限把代码直接提交到别人的仓库的，这样谁都可以往里面提交代码，那恶意提交不就完了吗？所以这里有一个操作就很好理解了 pull request（请求拉）  请求对方来拉自己远程仓库里的代码（本地肯定不现实）
+
+一般而言我们都会在push（像远程仓库提交代码）操作之前都会先进行pull（拉代码）操作，先把远程的代码拉下来，有冲突了本地解决好了，再提交上去，这样不容易造成冲突
+
+对于向远处仓库(GitHub)提交代码，我们可以细分为两种情况：
+
+第一种：本地没有git仓库，这时我们就可以直接将远程仓库clone到本地。通过clone命令创建的本地参考，其本身就是一个Git仓库了，不用我们再进行init初始化操作啦。而且自动关闭远程仓库。我们只需要在这个仓库进行修改或者添加操作，然后commit即可。
+
+新到公司怎么拉代码呢？
+
+首先我们登录公司的远程代码仓库页面，肯定要先给你登录这个远程代码仓库系统的账号和密码的。登录进去以后，找到clone 项目的选项（Clone or download），复制链接，然后，进入我们本地准备存储Git仓库的目录，例如下面我们新建的Git目录。从此进入Git Bash  接下来输入
+
+git clone https://github.com/goubinhit/mybatis-tutorial.git命令
+
+其中clone后面跟着的这个链接为我们刚刚复制的远程仓库的地址
+
+等一会就可以将代码clone到本地了。将本地仓库的内同push到远程仓库，输入git push origin master命令，第一次向远程仓库提交代码的时候，需要输入账号及密码进行验证，验证成功后远程仓库就能看到新提交的代码
+
+第一种：本地没有Git仓库，这时我们可以直接将远程参考clone到本地。通过clone命令创建的本地参考，其本身就是一个Git仓库了，不用我们再进行init初始化操作啦。而且自动关联远程仓库。我们只需要在这个参考进行修改或者添加等操作，然后commit即可。
+
+第二种：本地有Git仓库，并且我们已经进行了多次commit操作。
+
+git remote add origin https://github.com/gout...tial.git 命令
+
+关联远程仓库，其中origin为远程仓库的地址
+
+输入git pull origin master 命令，同步远程仓库和本地仓库
+
+再使用 git push origin master命令，将本地仓库的内容提交到远程仓库
+
+本地仓库的名字和远程仓库的名字可以随便起，但一般来说，我们习惯性的将远程仓库命名为origin,不过在需要关联多个远程仓库的时候，就需要我们再取别的名字了
+
+在我们像远程仓库提交代码的时候，一定要先进行pull操作，再进行push操作，防止本地仓库和远程仓库不同步导致冲突问题，尤其是第二种提交代码的情况，很容易出现问题。
+
